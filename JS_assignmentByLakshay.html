@@ -1,0 +1,224 @@
+<script>
+          // Assignment by Lakshay Chhabra
+//    1. Create Javascript function that reverses a string.
+//       E.g. "Hello world" => "dlrow olleH"
+
+    var string1 = "Hello World"
+
+    reversed = function(str) {
+         return str.split("").reverse().join("");
+     }
+
+     reversed(string1);
+//    Question2
+//Use above function to create function that perform
+//word wise reverse function. E.g. “Hello world” => “olleH dlr"
+
+
+
+    wordWise = function (str1)
+    {
+
+       return reversed(str1).split("").reverse().join("");
+
+    }
+
+     wordWise("hello world");
+//question3
+//Create a function that capitalises each word of a sentence.
+//E.g “javascRipt is a smart LanguAge. but it Requires too much effort.”
+//=> “JavascRipt Is A Smart LanguAge. But It Requires Too Much Effort.”
+arr="javascRipt is a smart LanguAge. but it Requires too much effort."
+
+          toCapital = function(str4)
+          {
+             var newArray =  str4.split(" ")
+              var desiredArray = []
+             newArray.forEach(function (element) {
+                 desiredArray.push(element.charAt(0).toUpperCase() + element.substr(1).toLowerCase());
+             })
+                      return desiredArray.join(" ")
+          }
+
+          toCapital(arr);
+//question4
+//          Try to run above function with some more efficiency, such that every
+//          word is capitalized and all remaining letters are converted to small case.
+//          E.g. Javascript Is A Smart Language. But It Requires Too Much Effort
+
+
+
+          toCapitalNormal = function(str4)
+          {
+
+              str4.toUpperCase();
+
+              return toCapital(str4);
+          }
+
+
+//question5
+          var capital={
+              'delhi':'Delhi',
+              'uttar pradesh':'Lucknow',
+              'haryana':'Chandigarh',
+              'punjab':'Chandigarh',
+              'uttarakhand':'Dehradoon'
+          }
+
+          var cities=[
+              {city:'Agra',state:'Uttar Pradesh'},
+              {city:'Faridabad',state:'Haryana'},
+              {city:'West delhi',state:'Delhi'},
+              {city:'Amritsar',state:'Punjab'},
+              {city:'Nainital',state:'Uttarakhand'},
+          ]
+
+    var cityArray =  cities.map(function (element, index,inputArray ) {
+                             element.capital = capital[element.state]
+                              return element;
+    })
+
+    //question 6
+var digits = function(number1)
+{
+   var digitToString = ""+number1;
+   var arrBroke = digitToString.split("");
+          return arrBroke.map(function (p1, p2, p3) {
+              return parseInt(p1);
+          })
+}
+digits(21234)
+//question 7
+
+          function arrSum(arr3) {
+              var sum = 0;
+              arr3.forEach(function(element){
+                  sum = sum + element;
+              });
+              return sum;
+          }
+
+arrSum([1,2,3,6,8,9])
+
+    // recursively checking
+
+          function arrSumR(arr4) {
+              var sum = arrSum(arr4);
+              if(sum>10) {
+                  return arrSumR(digits(sum));
+              }
+              else {
+                  return sum;
+              }
+          }
+          arrSumR([1,2,3,4,5]);
+
+//question 9 palindrome
+          var palindrome = function(arr9) {
+              var reverseArr = arr9.reverse();
+              if(arr9.toString()===reverseArr.toString()) {
+                  return true;
+              }
+              else {
+                  return false;
+              }
+          }
+          palindrome([1,2,1]);
+//question 10
+//          Use previous functions to check whether a string is palindrome or not.
+
+var stringPalindrome = function (str10) {
+              var changed = reversed(str10);
+              if(changed===str10)
+              {
+                  return true;
+              }
+              else{
+                  return false;
+              }
+}
+stringPalindrome("BOB");
+//question 11
+//          Create a function that cleans(remove duplicates) an array of digits/string
+          var clean = function(arr4) {
+          arr4.filter(function(element, index, inputArr){
+              return inputArr.indexOf(element) == index;
+          });
+          }
+
+          clean([1,2,2,3,4]);
+//question12
+          //Create a function that cleans(remove duplicates) from an array of objects.
+
+          var students=[
+              {name:'Abc',roll:3},
+              {name:'efg',roll:1},
+              {name:'pqr',roll:2},
+              {name:'rst',roll:1},
+              {name:'Xyz',roll:6},
+              {name:'mno',roll:2},
+              {name:'aaa',roll:1}
+          ];
+
+          var cleanArray = function(a){
+
+              for( let k1 in a){
+                  var index = a.findIndex(function(element,number1){
+           return element.roll==a[k1].roll && number1>k1 || element.roll==a[k1].roll && number1<k1;
+                  });
+                  if(index != -1)
+                      students.splice(index,1);
+              }
+                           console.log(a);
+          };
+       cleanArray(students);
+
+
+//          13. Create a function (sorter) which takes a string argument. This function can be passed into any sort function of array of objects. The string will decide the key on which the array should be sorted.
+//           E.g. students.sort(sorter(“name”)) -> Now sorter function must sort students with respect to name. Also make sure if the value in that key is a string array must be sorted without considering case.
+
+          var sorter = function(a){
+              a = a.toLowerCase();
+              students.sort(function(obj1,obj2){
+                  if(obj1[a] > obj2[a]){
+                      return 1;
+                  }
+                  else if(obj1[a] < obj2[a])
+                      return -1;
+                  else
+                      return 0;
+              });
+          };
+
+          sorter("Roll");
+
+
+          //14. Work on previous function and make sure if we pass “-” sign before the key the array must get sorted in descending order.
+
+          var minusSorter = function(a){
+              if(a.startsWith("-")){
+                  a = a.split("");
+                  a.shift();
+                  a = a.join("").toLowerCase();
+                  students.sort(function(obj1,obj2){
+                      if(obj1[a] < obj2[a]){
+                          return 1;
+                      }
+                      else if(obj1[a] > obj2[a])
+                          return -1;
+                      else
+                          return 0;
+                  });
+              }
+              else
+                  sorter(a);
+
+
+          };
+
+
+
+
+
+</script>
